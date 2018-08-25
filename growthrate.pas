@@ -15,3 +15,21 @@ var PastFigures:LinearArray;
 {$I ReadInt}
 {$I IntRaise}
 
+procedure InputData;
+var j:integer;
+
+begin
+    repeat
+        write('Number of years figures establised: ')
+    until ReadInt(NumYears,1,MaxYears);
+    write('What do your figures represent?');
+    readln(Name);
+    for i := 1 to NumYears do
+        begin
+            if i<>1 then write(' ':8);
+            repeat
+                write('year ',j:0,': ');
+            until ReadReal(PastFigures[j]);
+        end;
+        
+end; {function CalcGrowthRate}

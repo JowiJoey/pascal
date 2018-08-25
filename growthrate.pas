@@ -1,13 +1,9 @@
 program GrowthRate (input, output);
-
-uses transcend;
-
-const MaxYears=20;
-
-type LinearArray=array[1..MaxYears] of real;
-
+uses transcend
+const MaxYears = 20;
+type LinearArray = array[1..MaxYears] of real;
 var PastFigures:LinearArray;
-    GrowthFactor, GrowthRate:real;
+    GrowFactor, GrowRate:real;
     Name:string[20];
     NumYears:integer;
 
@@ -16,7 +12,7 @@ var PastFigures:LinearArray;
 {$I IntRaise}
 
 procedure InputData;
-var j:integer;
+    var j:integer;
     begin
         repeat
             write('Number of years figures establised: ')
@@ -37,6 +33,27 @@ function AverageGrowthRate:real;
         LogGrowthRate:real;
         j:integer;
     begin
-        
+       SumLogs:=ln(PastFigures[1]);
+       SumFactoredLogs := 0;
+       for k := 2 to NumYears do
+            begin
+                CurrentLog := ln(PastFigures[k]);
+                SumLogs := SumLogs + CurrentLog;
+                SumFactoredLogs := SumFactoredLogs + (j-1) * CurrentLog;
+            end;
+        LogGrowthRate := 6 * (2 * SumFactoredLogs / (NumYears - 1) - SumLogs) / NumYears / (NumYears + 1);
+        GrowRate := exp(LogGrowthRate) - 1;
+        GrowFactor := exp(SumLogs / NumYears - LogGrowthRate * (NumYears - 1) / 2);
+        AverageGrowthRate := trunc(GrowRate * 10000 + 0.5 / 100);            
+    end; {function CalcGrowthRate}
+
+procedure ProjectFigures;
+    var year:integer;
+        ProjFigure:real;
+    begin
+        writeln('Enter 0 to End Growth Rate Programe');
+        repeat
+            write('projected ', Name, 'for years: ')
+        until ReadInt(year, 0, maxint);
     end;
 

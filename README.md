@@ -1,2 +1,2 @@
-# pascal_finance
-Pascal Finance
+# pascal
+Pascal
